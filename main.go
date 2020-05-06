@@ -8,8 +8,19 @@ func HelloHandler(c *gin.Context)  {
 	})
 }
 
+func ByeHandler(c *gin.Context)  {
+	name := c.Query("name")
+	if name == "" {
+		name = "friend"
+	}
+	c.JSON(200, gin.H{
+		"msg": "bye" + name + "!",
+	})
+}
+
 func main() {
 	r := gin.Default()
 	r.GET("/ping", HelloHandler)
+	r.GET("/bye", ByeHandler)
 	r.Run(":8082")
 }
